@@ -26,6 +26,8 @@ export default class SystemScreen {
   async turnOffNotifications() {
     const element = await this.session.findElement({
       attributes: this.elements.dontAllowButton,
+    }, {
+      timeout: 10_000,
     });
 
     if (element) {

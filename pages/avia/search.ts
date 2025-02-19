@@ -26,8 +26,21 @@ export default class AviaSearchPage {
   @Step('Wait for loading avia search page')
   async waitForLoadingSearchPage() {
     console.log('Search page loaded');
-    await this.session.waitForElement({
+
+    const element = await this.session.findElement({
       attributes: this.elements.freeRefundButton,
-    });
+    }, { timeout: 10_000 });
+
+    if (element) {
+      await this.session.waitForElement({
+        attributes: this.elements.freeRefundButton,
+      });
+
+      await this.session.tap({
+        element: {
+          attributes: this.elements.freeRefundButton,
+        },
+      });
+    }
   }
 }
