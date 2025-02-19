@@ -36,7 +36,12 @@ export default [
     ],
   },
   ...fixupConfigRules(
-    compat.extends('eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:import/errors', 'plugin:import/typescript')
+    compat.extends(
+      'eslint:recommended',
+      'plugin:@typescript-eslint/recommended',
+      'plugin:import/errors',
+      'plugin:import/typescript'
+    )
   ),
   {
     plugins: {
@@ -181,14 +186,15 @@ export default [
         {
           selector: 'function',
           format: ['camelCase'],
-        },
+        }
       ],
 
       'no-restricted-syntax': [
         'error',
         {
           selector: 'TSInterfaceDeclaration',
-          message: 'Interfaces are only allowed in the types directory for converted from JSON schemas.',
+          message:
+            'Interfaces are only allowed in the types directory for converted from JSON schemas.',
         },
       ],
 

@@ -7,12 +7,16 @@
   "author": "Ivan Abramov",
   "license": "ISC",
   "scripts": {
+    "allure:clear": "rm -rf allure-report allure-results",
+    "allure:report": "allure generate allure-results && allure open",
     "build:check": "tsc --noEmit",
     "eslint:check": "npx eslint . --no-fix",
     "eslint:fix": "npx eslint . --fix",
     "format": "prettier --write ./",
     "lint-staged": "lint-staged",
-    "test": "wdio run ./wdio.conf.ts",
+    "test": "npx playwright test",
+    "test:headed:android": "npm run test -- --headed --project=android",
+    "test:headed:ios": "npm run test -- --headed --project=ios",
     "precommit": "check-exact package.json && npm run build:check && lint-staged && sort-package-json && git add package.json",
     "prepare": "husky install && npm-merge-driver install",
     "prepare-commit": "node ./scripts/prepare-commit.js",
@@ -25,8 +29,11 @@
     ]
   },
   "dependencies": {
+    "allure-playwright": "3.2.0",
     "@appetize/playwright": "1.5.0",
-    "@playwright/test": "1.50.0"
+    "@playwright/test": "1.50.0",
+    "config": "3.3.12",
+    "@types/config": "3.3.5"
   },
   "devDependencies": {
     "@eslint/compat": "1.2.4",

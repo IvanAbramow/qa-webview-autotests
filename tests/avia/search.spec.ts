@@ -1,32 +1,28 @@
-import { test } from "../../utils/fixtures";
+import { test } from '../../utils/fixtures';
+import { CREDS } from '../../constants/constants';
 
 test('Avia. Search', async ({
-                                       systemScreen,
-                                       authScreen,
-                                       customersScreen,
-                                       mainPage,
-                                       aviaIndexPage,
-                                       aviaSearchPage
-                                     }) => {
-  const {LOGIN, PASSWORD} = process.env;
-
+  systemScreen,
+  authScreen,
+  customersScreen,
+  mainPage,
+  aviaIndexPage,
+  aviaSearchPage,
+}) => {
   await systemScreen.turnOffNotifications();
 
-  await authScreen.loginByCreds({
-    login: LOGIN,
-    password: PASSWORD,
-  });
+  await authScreen.loginByCreds(CREDS);
 
   await customersScreen.chooseCustomerByElement(customersScreen.elements.corpTestCustomerButton);
 
   await mainPage.chooseProjectByElement(mainPage.elements.aviaButton);
 
   await aviaIndexPage.waitForLoadingIndexPage();
-  await aviaIndexPage.fillFlightParams({
+  await aviaIndexPage.chooseFlightFromHistory({
     fromCity: 'Москва',
     toCity: 'Сочи',
-    date: '4 марта'
+    date: '4 марта',
   });
 
   await aviaSearchPage.waitForLoadingSearchPage();
-})
+});

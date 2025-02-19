@@ -1,0 +1,10 @@
+{
+  "creds": {
+    "login": "your_login",
+    "password": "your_password"
+  },
+  "tokens": {
+    "android": "your_android_token",
+    "ios": "your_ios_token"
+  }
+}

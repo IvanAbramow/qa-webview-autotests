@@ -1,5 +1,15 @@
-import { defineConfig } from "@playwright/test";
-import { AppetizeTestOptions } from "@appetize/playwright";
+import { defineConfig } from '@playwright/test';
+import { AppetizeTestOptions } from '@appetize/playwright';
+
+import { TOKENS } from './constants/constants';
+
+const isCI = process.env.CI;
+
+const commonReportOptions = {
+  detail: false,
+  suiteTitle: false,
+  resultsDir: isCI ? `${process.env.ALLURE_DIR}/allure-results` : 'allure-results',
+};
 
 export default defineConfig<AppetizeTestOptions>({
   testDir: './tests',
@@ -8,21 +18,53 @@ export default defineConfig<AppetizeTestOptions>({
   expect: {
     toMatchSnapshot: {
       maxDiffPixelRatio: 0.05,
-    }
+    },
   },
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 3 : 0,
-  reporter: "html",
+  reporter: isCI
+    ? [
+      ['dot'],
+      [
+        'allure-playwright',
+        {
+          environmentInfo: {
+            ENVID: process.env.ENVID,
+            OS: process.platform,
+            NODE_VERSION: process.version,
+          },
+          ...commonReportOptions,
+        },
+      ],
+    ]
+    : [['line'], ['allure-playwright', commonReportOptions]],
   workers: 1,
   fullyParallel: false,
   use: {
     headless: false,
     trace: 'retain-on-failure',
     baseURL: 'https://appetize.io',
-    config: {
-      device: 'pixel7',
-      publicKey: process.env.TOKEN,
-      osVersion: '13.0'
-    },
   },
-})
+  projects: [
+    {
+      name: 'android',
+      use: {
+        config: {
+          device: 'pixel7',
+          publicKey: TOKENS.android,
+          osVersion: '13.0',
+        },
+      },
+    },
+    {
+      name: 'ios',
+      use: {
+        config: {
+          device: 'iphone14',
+          publicKey: TOKENS.ios,
+          osVersion: '13.0',
+        },
+      },
+    },
+  ],
+});

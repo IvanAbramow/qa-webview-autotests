@@ -1,15 +1,17 @@
-import { PlaywrightSession } from "@appetize/playwright";
-import { Step } from "../utils/decorators";
+import { PlaywrightSession } from '@appetize/playwright';
+
+import { Step } from '../utils/decorators';
 
 const elements = {
   dontAllowButton: {
-    text: "Don’t allow",
-    "resource-id": "com.android.permissioncontroller:id/permission_deny_button"
+    text: 'Don’t allow',
+    'resource-id': 'com.android.permissioncontroller:id/permission_deny_button',
   },
-}
+};
 
 export default class SystemScreen {
   public readonly elements: typeof elements;
+
   private session: PlaywrightSession;
 
   constructor(session: PlaywrightSession) {
@@ -22,14 +24,20 @@ export default class SystemScreen {
 
   @Step('Turn off notifications')
   async turnOffNotifications() {
-    await this.session.waitForElement({
-      attributes: this.elements.dontAllowButton
+    const element = await this.session.findElement({
+      attributes: this.elements.dontAllowButton,
     });
 
-    await this.session.tap({
-      element: {
-        attributes: this.elements.dontAllowButton
-      }
-    });
+    if (element) {
+      await this.session.waitForElement({
+        attributes: this.elements.dontAllowButton,
+      });
+
+      await this.session.tap({
+        element: {
+          attributes: this.elements.dontAllowButton,
+        },
+      });
+    }
   }
 }

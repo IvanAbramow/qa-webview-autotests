@@ -1,10 +1,11 @@
 import { test as base } from '@appetize/playwright';
-import AuthScreen from "../screens/auth";
-import SystemScreen from "../screens/system";
-import CustomersScreen from "../screens/customers";
-import MainPage from "../pages/main";
-import AviaIndexPage from "../pages/avia";
-import AviaSearchPage from "../pages/avia/search";
+
+import AuthScreen from '../screens/auth';
+import SystemScreen from '../screens/system';
+import CustomersScreen from '../screens/customers';
+import MainPage from '../pages/main';
+import AviaIndexPage from '../pages/avia';
+import AviaSearchPage from '../pages/avia/search';
 
 type TFixture = {
   authScreen: AuthScreen;

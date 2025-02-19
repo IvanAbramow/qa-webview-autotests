@@ -1,33 +1,33 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./",
-        "allowJs": false,
-        "target": "es5",
-        "module": "commonjs",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "checkJs": false,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "allowSyntheticDefaultImports": true,
-        "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "node",
-        "skipLibCheck": true,
-        "noEmitOnError": true,
-        "noUnusedParameters": true,
-        "noUnusedLocals": true,
-        "esModuleInterop": true,
-        "noImplicitAny": true,
-        "noEmit": true,
-        "resolveJsonModule": true,
-        "typeRoots": ["node_modules/@types", "global.d.ts"]
-    },
-    "exclude": ["node_modules", "scripts/updateNodeAndPlaywrightVersion.ts"],
-    "include": [
-        "**/*.ts",
-        "type-check.mjs",
-        "eslint-plugin-todo-link.js",
-        "eslint-plugin-no-hardcode-test-type.js",
-        "eslint-plugin-require-request-postfix.js",
-        "eslint-plugin-max-lines-per-class.js"
-    ]
+  "compilerOptions": {
+    "baseUrl": "./",
+    "allowJs": false,
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "checkJs": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "noEmitOnError": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["node_modules/@types", "global.d.ts"]
+  },
+  "exclude": ["node_modules", "scripts/updateNodeAndPlaywrightVersion.ts"],
+  "include": [
+    "**/*.ts",
+    "type-check.mjs",
+    "eslint-plugin-todo-link.js",
+    "eslint-plugin-no-hardcode-test-type.js",
+    "eslint-plugin-require-request-postfix.js",
+    "eslint-plugin-max-lines-per-class.js"
+  ]
 }

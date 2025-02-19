@@ -1,14 +1,19 @@
-import { PlaywrightSession } from "@appetize/playwright";
-import { Step } from "../../utils/decorators";
+import { PlaywrightSession } from '@appetize/playwright';
+
+import { Step } from '../../utils/decorators';
 
 const elements = {
   searchPage: {
-    text: "Авиабилеты"
+    text: 'Авиабилеты',
   },
-}
+  freeRefundButton: {
+    text: 'Отлично',
+  },
+};
 
 export default class AviaSearchPage {
   public readonly elements: typeof elements;
+
   private session: PlaywrightSession;
 
   constructor(session: PlaywrightSession) {
@@ -20,8 +25,9 @@ export default class AviaSearchPage {
 
   @Step('Wait for loading avia search page')
   async waitForLoadingSearchPage() {
+    console.log('Search page loaded');
     await this.session.waitForElement({
-      attributes: this.elements.searchPage
+      attributes: this.elements.freeRefundButton,
     });
   }
 }

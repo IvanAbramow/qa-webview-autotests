@@ -2,3 +2,4 @@
 /coverage
 /allure-report
 node_modules
+.github/**
