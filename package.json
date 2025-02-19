@@ -1,0 +1,56 @@
+{
+  "name": "qa-webview-autotests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "description": "Webview testing project",
+  "author": "Ivan Abramov",
+  "license": "ISC",
+  "scripts": {
+    "build:check": "tsc --noEmit",
+    "eslint:check": "npx eslint . --no-fix",
+    "eslint:fix": "npx eslint . --fix",
+    "format": "prettier --write ./",
+    "lint-staged": "lint-staged",
+    "test": "wdio run ./wdio.conf.ts",
+    "precommit": "check-exact package.json && npm run build:check && lint-staged && sort-package-json && git add package.json",
+    "prepare": "husky install && npm-merge-driver install",
+    "prepare-commit": "node ./scripts/prepare-commit.js",
+    "prepush": "npm run utils:type-check"
+  },
+  "lint-staged": {
+    "*.{ts,js,json,md}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "@appetize/playwright": "1.5.0",
+    "@playwright/test": "1.50.0"
+  },
+  "devDependencies": {
+    "@eslint/compat": "1.2.4",
+    "@eslint/eslintrc": "3.2.0",
+    "@eslint/js": "9.18.0",
+    "@typescript-eslint/eslint-plugin": "8.18.2",
+    "@typescript-eslint/parser": "8.18.2",
+    "check-exact": "1.1.0",
+    "eslint": "9.18.0",
+    "eslint-import-resolver-typescript": "3.7.0",
+    "eslint-plugin-import": "2.31.0",
+    "husky": "9.1.7",
+    "husky-check-email": "0.0.7",
+    "lint-staged": "15.2.11",
+    "npm-merge-driver": "2.3.6",
+    "prettier": "2.7.1",
+    "sort-package-json": "2.12.0",
+    "ts-node": "10.9.2",
+    "ts-node-dev": "2.0.0",
+    "typescript": "5.7.2",
+    "@types/node": "22.12.0"
+  },
+  "engines": {
+    "node": "22.12.0",
+    "npm": "10.9.0"
+  }
+}
