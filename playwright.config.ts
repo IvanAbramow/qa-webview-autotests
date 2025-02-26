@@ -12,7 +12,7 @@ const commonReportOptions = {
 };
 
 export default defineConfig<AppetizeTestOptions>({
-  testDir: './tests',
+  testDir: './src/tests',
   outputDir: 'test-results/',
   timeout: 120 * 1000,
   expect: {
@@ -60,9 +60,9 @@ export default defineConfig<AppetizeTestOptions>({
       name: 'ios',
       use: {
         config: {
-          device: 'iphone14',
+          device: 'iphone14pro',
           publicKey: TOKENS.ios,
-          osVersion: '13.0',
+          osVersion: '16.2',
         },
       },
     },

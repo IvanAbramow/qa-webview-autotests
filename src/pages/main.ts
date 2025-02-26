@@ -1,10 +1,18 @@
 import { PlaywrightSession } from '@appetize/playwright';
 
 import { Step } from '../utils/decorators';
+import { EProjects } from '../types';
 
 const elements = {
-  aviaButton: {
-    text: 'Авиабилеты',
+  ios: {
+    aviaButton: {
+      'data-locator': 'service-tile-avia',
+    },
+  },
+  android: {
+    aviaButton: {
+      text: 'Авиабилеты',
+    },
   },
 };
 
@@ -22,16 +30,19 @@ export default class MainPage {
   static readonly elements: typeof elements = elements;
 
   @Step('Choose project')
-  async chooseProjectByElement(element: { text: string }) {
-    await this.session.waitForElement({
-      attributes: element,
-    }, {
-      timeout: 10_000,
-    });
+  async chooseProjectByElement(project: EProjects) {
+    await this.session.waitForElement(
+      {
+        attributes: this.elements[project].aviaButton,
+      },
+      {
+        timeout: 10_000,
+      }
+    );
 
     await this.session.tap({
       element: {
-        attributes: element,
+        attributes: this.elements[project].aviaButton,
       },
     });
   }

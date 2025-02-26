@@ -1,6 +1,7 @@
 import { PlaywrightSession } from '@appetize/playwright';
 
 import { Step } from '../../utils/decorators';
+import { EProjects } from '../../types';
 
 
 type FlightParams = {
@@ -10,23 +11,45 @@ type FlightParams = {
 };
 
 const elements = {
-  indexPage: {
-    text: 'Авиабилеты',
+  android: {
+    indexPage: {
+      text: 'Авиабилеты',
+    },
+    fromInput: {
+      text: 'Откуда',
+    },
+    toInput: {
+      text: 'Куда',
+    },
+    datesInput: {
+      text: 'Когда',
+    },
+    searchButton: {
+      text: 'Найти',
+    },
+    datesPicker: {
+      text: 'Когда',
+    },
   },
-  fromInput: {
-    text: 'Откуда',
-  },
-  toInput: {
-    text: 'Куда',
-  },
-  datesInput: {
-    text: 'Когда',
-  },
-  searchButton: {
-    text: 'Найти',
-  },
-  datesPicker: {
-    text: 'Когда',
+  ios: {
+    indexPage: {
+      'data-locator': 'service-tile-avia',
+    },
+    fromInput: {
+      text: 'Откуда',
+    },
+    toInput: {
+      text: 'Куда',
+    },
+    datesInput: {
+      text: 'Когда',
+    },
+    searchButton: {
+      text: 'Найти',
+    },
+    datesPicker: {
+      text: 'Когда',
+    },
   },
 };
 
@@ -43,9 +66,9 @@ export default class AviaIndexPage {
   static readonly elements: typeof elements = elements;
 
   @Step('Wait for loading index page')
-  async waitForLoadingIndexPage() {
+  async waitForLoadingIndexPage(project: EProjects) {
     await this.session.waitForElement({
-      attributes: this.elements.indexPage,
+      attributes: this.elements[project].indexPage,
     });
   }
 
@@ -80,14 +103,14 @@ export default class AviaIndexPage {
     fromCity,
     toCity,
     date,
-  }: FlightParams) {
+  }: FlightParams, project: EProjects) {
     await this.session.waitForElement({
-      attributes: this.elements.datesInput,
+      attributes: this.elements[project].datesInput,
     });
 
     await this.session.tap({
       element: {
-        attributes: this.elements.datesPicker,
+        attributes: this.elements[project].datesPicker,
       },
     });
 
@@ -102,10 +125,10 @@ export default class AviaIndexPage {
   }
 
   @Step('Click on search button')
-  private async clickOnSearchButton() {
+  private async clickOnSearchButton(project: EProjects) {
     await this.session.tap({
       element: {
-        attributes: this.elements.searchButton,
+        attributes: this.elements[project].searchButton,
       },
     });
   }
@@ -115,16 +138,14 @@ export default class AviaIndexPage {
     fromCity,
     toCity,
     date,
-  }: FlightParams) {
-    await this.fillCity(this.elements.fromInput, fromCity);
+  }: FlightParams, project: EProjects) {
+    await this.fillCity(this.elements[project].fromInput, fromCity);
+    await this.fillCity(this.elements[project].toInput, toCity);
 
-    await this.fillCity(this.elements.toInput, toCity);
+    await this.chooseFlightDate({ fromCity, toCity, date }, project);
 
-    await this.chooseFlightDate({ fromCity, toCity, date });
-
-    await this.waitForLoadingIndexPage();
-
-    await this.clickOnSearchButton();
+    await this.waitForLoadingIndexPage(project);
+    await this.clickOnSearchButton(project);
   }
 
   @Step('Fill flight params')

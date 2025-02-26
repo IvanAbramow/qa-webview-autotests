@@ -15,11 +15,12 @@
     "format": "prettier --write ./",
     "lint-staged": "lint-staged",
     "test": "npx playwright test",
+    "test:headed": "npm run test -- --headed",
     "test:headed:android": "npm run test -- --headed --project=android",
     "test:headed:ios": "npm run test -- --headed --project=ios",
     "precommit": "check-exact package.json && npm run build:check && lint-staged && sort-package-json && git add package.json",
     "prepare": "husky install && npm-merge-driver install",
-    "prepare-commit": "node ./scripts/prepare-commit.js",
+    "prepare-commit": "node src/scripts/prepare-commit.js",
     "prepush": "npm run utils:type-check"
   },
   "lint-staged": {

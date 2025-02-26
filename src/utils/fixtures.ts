@@ -6,6 +6,7 @@ import CustomersScreen from '../screens/customers';
 import MainPage from '../pages/main';
 import AviaIndexPage from '../pages/avia';
 import AviaSearchPage from '../pages/avia/search';
+import { EProjects } from '../types';
 
 type TFixture = {
   authScreen: AuthScreen;
@@ -15,6 +16,7 @@ type TFixture = {
   /** Avia */
   aviaIndexPage: AviaIndexPage;
   aviaSearchPage: AviaSearchPage;
+  project: EProjects;
 };
 
 export const test = base.extend<TFixture>({
@@ -47,6 +49,11 @@ export const test = base.extend<TFixture>({
     const aviaSearchPage = new AviaSearchPage(session);
 
     await use(aviaSearchPage);
+  },
+  // eslint-disable-next-line no-empty-pattern
+  project: async ({ }, use) => {
+    const project = test.info().project.name as TFixture['project'];
+    await use(project);
   },
 });
 

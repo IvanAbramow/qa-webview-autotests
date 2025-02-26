@@ -21,7 +21,9 @@
     "resolveJsonModule": true,
     "typeRoots": ["node_modules/@types", "global.d.ts"]
   },
-  "exclude": ["node_modules", "scripts/updateNodeAndPlaywrightVersion.ts"],
+  "exclude": ["node_modules",
+    "src/scripts/updateNodeAndPlaywrightVersion.ts"
+  ],
   "include": [
     "**/*.ts",
     "type-check.mjs",
